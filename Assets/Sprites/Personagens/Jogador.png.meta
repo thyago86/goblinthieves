@@ -119,18 +119,18 @@ TextureImporter:
       name: Jogador_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 144
-        width: 32
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 4
+        y: 146
+        width: 25
+        height: 43
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e12db333b8c7a4c4fa7519fc8907c6b9
+      spriteID: c0f5b9fc861369247a3498c32a360c5b
       vertices: []
       indices: 
       edges: []
@@ -139,18 +139,18 @@ TextureImporter:
       name: Jogador_1
       rect:
         serializedVersion: 2
-        x: 32
-        y: 144
-        width: 32
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 34
+        y: 146
+        width: 26
+        height: 42
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 323cf89a618ca2b4a8169edd10d6e6ae
+      spriteID: 320261a88beb32243be4c834fdd93e51
       vertices: []
       indices: 
       edges: []
@@ -159,18 +159,18 @@ TextureImporter:
       name: Jogador_2
       rect:
         serializedVersion: 2
-        x: 64
-        y: 144
-        width: 32
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 68
+        y: 146
+        width: 25
+        height: 43
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6e47f0141155f3d49ab7cfaef3a8c3a9
+      spriteID: dea0177dedc99ce4487a65e716bc28f1
       vertices: []
       indices: 
       edges: []
@@ -179,18 +179,18 @@ TextureImporter:
       name: Jogador_3
       rect:
         serializedVersion: 2
-        x: 96
-        y: 144
-        width: 32
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 101
+        y: 146
+        width: 26
+        height: 42
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bc86a37514e13a64aac5159d346e7ad5
+      spriteID: 8dca701ca3b00aa49a1a5cf568251aae
       vertices: []
       indices: 
       edges: []
@@ -199,18 +199,18 @@ TextureImporter:
       name: Jogador_4
       rect:
         serializedVersion: 2
-        x: 0
-        y: 96
-        width: 32
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 6
+        y: 98
+        width: 24
+        height: 43
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 34440c197af951b49b6d38ca8a92d6b3
+      spriteID: 098c2ae1f98ac0e4d8bb7ad08600bb3e
       vertices: []
       indices: 
       edges: []
@@ -219,18 +219,18 @@ TextureImporter:
       name: Jogador_5
       rect:
         serializedVersion: 2
-        x: 32
-        y: 96
-        width: 32
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 38
+        y: 98
+        width: 24
+        height: 42
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8244533d2d0c51f4c802aedf0f5e4607
+      spriteID: 8c1615dbefa947d44a59ffcb53f62e91
       vertices: []
       indices: 
       edges: []
@@ -239,18 +239,18 @@ TextureImporter:
       name: Jogador_6
       rect:
         serializedVersion: 2
-        x: 64
-        y: 96
-        width: 32
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 70
+        y: 98
+        width: 24
+        height: 43
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f47f330d993e5ee478c7fc9b311c26a1
+      spriteID: bbfd68c2a7181d14687a81c9e5e956b0
       vertices: []
       indices: 
       edges: []
@@ -259,18 +259,18 @@ TextureImporter:
       name: Jogador_7
       rect:
         serializedVersion: 2
-        x: 96
-        y: 96
-        width: 32
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 101
+        y: 98
+        width: 25
+        height: 42
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f69d4cd3356680b408b0fb663cb2a60d
+      spriteID: bd7a1d752649ebe4ba4a288a592c0d83
       vertices: []
       indices: 
       edges: []
@@ -279,18 +279,18 @@ TextureImporter:
       name: Jogador_8
       rect:
         serializedVersion: 2
-        x: 0
-        y: 48
-        width: 32
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 2
+        y: 50
+        width: 24
+        height: 43
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e31bc10aa68e2e846a9dc88575a0515e
+      spriteID: b750179b8c9359d4286c696902786b1a
       vertices: []
       indices: 
       edges: []
@@ -299,18 +299,18 @@ TextureImporter:
       name: Jogador_9
       rect:
         serializedVersion: 2
-        x: 32
-        y: 48
-        width: 32
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 34
+        y: 50
+        width: 24
+        height: 41
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d0f10b594eadd5b4a9c47cd83dd2a6db
+      spriteID: fae7a81f34887db4ba3814bca6e04823
       vertices: []
       indices: 
       edges: []
@@ -319,18 +319,18 @@ TextureImporter:
       name: Jogador_10
       rect:
         serializedVersion: 2
-        x: 64
-        y: 48
-        width: 32
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 66
+        y: 50
+        width: 24
+        height: 42
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3f9f90b4df36f054aac9f94f90615ab7
+      spriteID: d8737b5b52be766499c8b35cb2e1c075
       vertices: []
       indices: 
       edges: []
@@ -339,18 +339,18 @@ TextureImporter:
       name: Jogador_11
       rect:
         serializedVersion: 2
-        x: 96
-        y: 48
-        width: 32
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 97
+        y: 50
+        width: 25
+        height: 41
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 28df62f7ccc3b01478784b3e43a34af8
+      spriteID: 176f86be77b1e604798c53a6103cdca5
       vertices: []
       indices: 
       edges: []
@@ -359,18 +359,18 @@ TextureImporter:
       name: Jogador_12
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 32
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 4
+        y: 2
+        width: 25
+        height: 44
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 29bb001fdda10b44ab88d61609c47c49
+      spriteID: 099a08eef7a07604c9f55b4d17c07d99
       vertices: []
       indices: 
       edges: []
@@ -379,18 +379,18 @@ TextureImporter:
       name: Jogador_13
       rect:
         serializedVersion: 2
-        x: 32
-        y: 0
-        width: 32
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 37
+        y: 2
+        width: 25
+        height: 43
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1d2bc76dee8c8664fbcc8fc2d8a5aa6f
+      spriteID: f83f1f76712f76b458730a5694acdf4d
       vertices: []
       indices: 
       edges: []
@@ -399,18 +399,18 @@ TextureImporter:
       name: Jogador_14
       rect:
         serializedVersion: 2
-        x: 64
-        y: 0
-        width: 32
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 68
+        y: 2
+        width: 25
+        height: 44
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d700621b95ac90840b59e2526a1f17ff
+      spriteID: c041e6644d252f249ae5b63769cc2cbf
       vertices: []
       indices: 
       edges: []
@@ -419,18 +419,18 @@ TextureImporter:
       name: Jogador_15
       rect:
         serializedVersion: 2
-        x: 96
-        y: 0
-        width: 32
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 100
+        y: 2
+        width: 24
+        height: 43
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d4a0c3a939de0d1468afd383af8c92e7
+      spriteID: d1bcdd65466d56e4694a166811a38f6e
       vertices: []
       indices: 
       edges: []

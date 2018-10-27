@@ -6,7 +6,7 @@ using UnityEngine;
 public class Jogador_Info : MonoBehaviour {
 
 	
-	private Tile FacingTile;
+	public Vector3Int FacingTile;
 
 	void Start () {
 		

@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/startGame.unity
+- path: Assets/Scenes/Cena de Teste Juk.unity
   isLoaded: 1
   isActive: 1
