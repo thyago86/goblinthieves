@@ -12,6 +12,7 @@ public class Jogador_Movimento : MonoBehaviour {
 
 /* Referencias Externas */
 	private Jogador_Info PlayerInfo;
+	public VisibilityArea Sight;
 /* Referencias Externas */
 
 /* Variaveis */
@@ -23,6 +24,7 @@ public class Jogador_Movimento : MonoBehaviour {
 
 	private IEnumerator Mover(Vector3 nextPos){
 		Moving = true;
+		Sight.MakeVisibleArea(Chao.WorldToCell(transform.position));
 		while(Moving){
 			if(Vector3.Distance(transform.position, nextPos) > 0){
 				transform.position = Vector3.MoveTowards(transform.position, nextPos, MoveSpeed*Time.deltaTime);
@@ -50,6 +52,7 @@ public class Jogador_Movimento : MonoBehaviour {
 	}
 	
 	void Update () {
+		Vector3Int[] test = GridHandler.getTilesAround(Chao.WorldToCell(transform.localPosition),Chao);
 		if(!Moving){
 			Vector3 pos = transform.position;
 			if(Input.GetKey("up")){
