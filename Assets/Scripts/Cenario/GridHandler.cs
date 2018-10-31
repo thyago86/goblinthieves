@@ -98,14 +98,93 @@ public class GridHandler{
 			}
 		*/
 
+		Vector3Int pos = new Vector3Int(originCell.x,originCell.y,0);
+
+		/* Verticalmente falando */
+			/* Cruz */
+				Vector3Int[] PositionsVU = GetCellsDir(FloorMap,ObstacleMap,Vector2.up,pos,areaSize,false);
+				foreach(Vector3Int p in PositionsVU){
+					if(!Result.Contains(p)){
+						Result.Add(p);
+					}
+				}
+				Vector3Int[] PositionsVD = GetCellsDir(FloorMap,ObstacleMap,Vector2.down,pos,areaSize,false);
+				foreach(Vector3Int p in PositionsVU){
+					if(!Result.Contains(p)){
+						Result.Add(p);
+					}
+				}
+			/* Cruz */
+
+			for(int Vi = -PositionsVD.Length; Vi < PositionsVU.Length; Vi++){
+				Vector3Int[] PositionsVR = GetCellsDir(FloorMap,ObstacleMap,Vector2.right,pos,areaSize-Mathf.Abs(Vi),false);
+				Vector3Int[] PositionsVL = GetCellsDir(FloorMap,ObstacleMap,Vector2.left,pos,areaSize-Mathf.Abs(Vi),false);
+
+				foreach(Vector3Int p in PositionsVL){
+					if(!Result.Contains(p)){
+						Result.Add(p);
+					}
+				}
+
+				foreach(Vector3Int p in PositionsVR){
+					if(!Result.Contains(p)){
+						Result.Add(p);
+					}
+				}
+
+				pos = new Vector3Int(originCell.x,(originCell.y+CellY*Vi)+1,0);
+			}
+		/* Verticalmente falando */
+		
+		/* Horizontalmente falando */
+			pos = new Vector3Int(originCell.x,originCell.y,0);
+			/* Cruz */
+				Vector3Int[] PositionsHR = GetCellsDir(FloorMap,ObstacleMap,Vector2.right,pos,areaSize,false);
+				foreach(Vector3Int p in PositionsHR){
+					if(!Result.Contains(p)){
+						Result.Add(p);
+					}
+				}
+				Vector3Int[] PositionsHL = GetCellsDir(FloorMap,ObstacleMap,Vector2.left,pos,areaSize,false);
+				foreach(Vector3Int p in PositionsHL){
+					if(!Result.Contains(p)){
+						Result.Add(p);
+					}
+				}
+			/* Cruz */
+
+			for(int Hi = -PositionsHL.Length; Hi < PositionsHR.Length; Hi++){
+				Vector3Int[] PositionsHU = GetCellsDir(FloorMap,ObstacleMap,Vector2.up,pos,areaSize-Mathf.Abs(Hi),false);
+				Vector3Int[] PositionsHD = GetCellsDir(FloorMap,ObstacleMap,Vector2.down,pos,areaSize-Mathf.Abs(Hi),false);
+
+				foreach(Vector3Int p in PositionsHU){
+					if(!Result.Contains(p)){
+						Result.Add(p);
+					}
+				}
+
+				foreach(Vector3Int p in PositionsHD){
+					if(!Result.Contains(p)){
+						Result.Add(p);
+					}
+				}
+
+				pos = new Vector3Int((originCell.x + CellX*Hi)+1,originCell.y,0);
+			}
+		/* Horizontalmente falando */
+
+
 		
 		
 		
 		return Result.ToArray();
 	}
 
-	public static void SortUsingManhattanDistance(Vector3Int[] array, Vector3Int goal){
+	public static void SortUsingManhattanDistance(Queue<Vector3Int> q, Vector3Int goal){
 		
+		Vector3Int[] array = q.ToArray();
+		q.Clear();
+
 		for(int i=0;i<array.Length-1;i++){
 			int distanceCurrent = Mathf.Abs((array[i].x - goal.x)) + Mathf.Abs((array[i].y - goal.y));
 			
@@ -118,10 +197,33 @@ public class GridHandler{
 				}
 			}
 		}
+
+		for(int i=0;i<array.Length;i++){
+			q.Enqueue(array[i]);
+		}
 	}
 
-	public static Vector3Int[] GetCellsDir(Tilemap Map, Vector2 Dir, int maxDist, bool Passthrough){
-		
+	public static Vector3Int[] GetCellsDir(Tilemap FloorMap, Tilemap ObstacleMap, Vector2 Dir, Vector3Int originCell, int maxDist, bool Passthrough){
+		List<Vector3Int> Result = new List<Vector3Int>();
+		int CellX = (int) FloorMap.cellSize.x;
+		int CellY = (int) FloorMap.cellSize.y;
+
+		int DirX = Mathf.CeilToInt(Dir.x);
+		int DirY = Mathf.CeilToInt(Dir.y);
+
+		for(int i=0; i<maxDist;i++){
+			Vector3Int pos = new Vector3Int(originCell.x + i*CellX*DirX, originCell.y + i*CellY*DirY,0);
+			if(FloorMap.HasTile(pos)){
+				Result.Add(pos);
+				if(ObstacleMap.HasTile(pos)){
+					if(!Passthrough){
+						break;
+					}
+				}
+			}
+		}
+
+		return Result.ToArray();
 	}
 
 	public static Vector3Int[] AStar(Tilemap FloorMap,Tilemap ObstacleMap, Vector3Int originCell, Vector3Int goalCell){
@@ -136,7 +238,6 @@ public class GridHandler{
 			Vector3Int Current = Fronteira.Dequeue();
 
 			Vector3Int[] CurrentNeighbors = getTilesAround(Current, FloorMap);
-			SortUsingManhattanDistance(CurrentNeighbors,goalCell);
 
 			for(int i=0;i<CurrentNeighbors.Length;i++){
 				if(FloorMap.HasTile(CurrentNeighbors[i]) && !Result.Contains(CurrentNeighbors[i])){
@@ -147,6 +248,7 @@ public class GridHandler{
 					//}
 				}
 			}
+			SortUsingManhattanDistance(Fronteira,goalCell);
 		}
 
 		return Result.ToArray();

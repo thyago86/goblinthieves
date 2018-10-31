@@ -8,7 +8,11 @@ public class Jogador_Movimento : MonoBehaviour {
 /* Tilemaps */
 	public Tilemap Chao;
 	public Tilemap Obstaculos;
+	public Tilemap Portal;
 /* Tilemaps */
+
+	
+	public Camera cam;
 
 /* Referencias Externas */
 	private Jogador_Info PlayerInfo;
@@ -24,11 +28,14 @@ public class Jogador_Movimento : MonoBehaviour {
 
 	private IEnumerator Mover(Vector3 nextPos){
 		Moving = true;
-		Sight.MakeVisibleArea(Chao.WorldToCell(transform.position));
+		
 		while(Moving){
 			if(Vector3.Distance(transform.position, nextPos) > 0){
 				transform.position = Vector3.MoveTowards(transform.position, nextPos, MoveSpeed*Time.deltaTime);
 			}else{
+				if(Portal.HasTile(Chao.WorldToCell(transform.position))){
+					MudarSala();
+				}
 				Moving = false;
 			}
 			yield return null;
@@ -36,6 +43,16 @@ public class Jogador_Movimento : MonoBehaviour {
 		yield return null;
 	}
 /* Lerp de movimento do personagem (triggers de animacao coloca aqui tbm) */
+
+
+/* Metodo de mover o personagem e a camera para outra sessão do mapa */
+	public void MudarSala(){
+		Vector3Int PosFinal = PortalHandler.Portal_Portal[Chao.WorldToCell(transform.position)];
+		transform.position = Chao.GetCellCenterWorld(PosFinal);
+		
+		cam.gameObject.SendMessage("CallMoveCamera",PortalHandler.Portal_CameraSpot[PosFinal]);
+	}
+/* Metodo de mover o personagem e a camera para outra sessãao do mapa */
 
 /* Atualizar Tile de interação */
 	private void UpdateFacingTile(Vector3Int toUpdate){
@@ -97,5 +114,9 @@ public class Jogador_Movimento : MonoBehaviour {
 				}
 			}
 		}
+	}
+
+	private void FixedUpdate(){
+		Sight.MakeVisibleArea(Chao.WorldToCell(transform.position));
 	}
 }

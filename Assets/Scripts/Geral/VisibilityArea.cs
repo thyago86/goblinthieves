@@ -9,14 +9,17 @@ public class VisibilityArea : MonoBehaviour {
 
 	public Tilemap Chao;
 	public Tilemap Obstacles;
+	public Tilemap Fog;
 
 	public int AreaSize;
 
-	public int PoolSize;
+	private int PoolSize;
 
 	private Queue<GameObject> MaskPool = new Queue<GameObject>();
 
 	private void MakePool(){
+		PoolSize = Mathf.CeilToInt(Mathf.Pow(AreaSize,2) + Mathf.Pow(AreaSize-1,2));
+
 		for(int i=0;i<PoolSize;i++){
 			GameObject mask = Instantiate(MaskPrefab);
 			mask.transform.SetParent(transform);
@@ -25,26 +28,39 @@ public class VisibilityArea : MonoBehaviour {
 		}
 	}
 
+	public void ResetPool(){
+		while(MaskPool.Count > 0){
+			GameObject m = MaskPool.Dequeue();
+			Destroy(m);
+		}
+
+		MakePool();
+	}
+
 	public void MakeVisibleArea(Vector3Int currentPos){
 		foreach (GameObject maskTile in MaskPool){
-			maskTile.transform.position = currentPos;
+			maskTile.SetActive(false);
 		}
 
 		Vector3Int[] allPos = GridHandler.getAllTilesVisibilityTilesAround(Chao,Obstacles,currentPos,AreaSize);
-		foreach (Vector3Int pos in allPos){
-			//print(pos.ToString());
 
+		foreach (Vector3Int pos in allPos){
 			
 			GameObject Maskinst = MaskPool.Dequeue();
 			Maskinst.transform.position = Chao.GetCellCenterWorld(pos);
 			Maskinst.SetActive(true);
 			MaskPool.Enqueue(Maskinst);
+
+			if(Fog.HasTile(pos)){
+				Fog.SetTile(pos,null);
+			}
 			
 		}
 	}
 
 	void Start () {
 		MakePool();
+		MakeVisibleArea(Chao.WorldToCell(transform.position));
 	}
 	
 	void Update () {
