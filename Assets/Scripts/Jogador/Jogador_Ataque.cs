@@ -5,13 +5,30 @@ using UnityEngine;
 
 public class Jogador_Ataque : MonoBehaviour {
 
-	// Use this for initialization
+	public GameObject AtkWeaponPrefab;
+	public GameObject AtkWeaponInst;
+
+	private Jogador_Info PlayerInfo;
+
+	private void Attack(){
+		if(!PlayerInfo.PlayerMov.Obstaculos.HasTile(PlayerInfo.FacingTile)){
+			Vector2 FacingDir = (PlayerInfo.PlayerMov.Chao.GetCellCenterWorld(PlayerInfo.FacingTile) - transform.position).normalized;
+			float rotZ = Mathf.Atan2(FacingDir.y,FacingDir.x) * Mathf.Rad2Deg;
+
+			AtkWeaponInst = Instantiate(AtkWeaponPrefab,PlayerInfo.PlayerMov.Chao.GetCellCenterWorld(PlayerInfo.FacingTile),Quaternion.Euler(new Vector3(0,0,rotZ)));
+			//transform.position
+			Destroy(AtkWeaponInst,0.3f);
+		}
+	}
+
 	void Start () {
-		
+		PlayerInfo = transform.GetComponent<Jogador_Info>();
 	}
 	
-	// Update is called once per frame
+
 	void Update () {
-		
+		if(Input.GetKeyDown("space") && !AtkWeaponInst && !PlayerInfo.PlayerMov.Moving){
+			Attack();
+		}
 	}
 }
