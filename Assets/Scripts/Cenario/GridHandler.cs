@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GridHandler{
+public class GridHandler : SingletonMonoBehaviour<GridHandler>{
 
-	public Dictionary<Tilemap,int> map_cost;
+	public Dictionary<Vector3Int,int> visibility_cost;
+	public Dictionary<Vector3Int,int> wall_cost;
 
 	public static Vector3Int[] getTilesAround(Vector3Int pos, Tilemap Map){
 		List<Vector3Int> Result = new List<Vector3Int>();
@@ -43,6 +44,31 @@ public class GridHandler{
 			}
 		}
 		return Result;
+	}
+
+	public static List<Tilemap> GetAllMapsWithTile(Vector3Int pos){
+		List<Tilemap> Result = new List<Tilemap>();
+
+		Tilemap[] AllMaps = GameObject.FindObjectsOfType<Tilemap>();
+		foreach (var m in AllMaps){
+			if(m.HasTile(pos)){
+				Result.Add(m);
+			}
+		}
+
+		return Result;
+	}
+
+	public static GameObject GetInteractableOnTile(Vector3Int pos){		
+		GameObject[] AllInteractables = GameObject.FindGameObjectsWithTag("Interactable");
+		foreach (var item in AllInteractables){
+			if(item.transform.position == pos){
+				return item;
+			}
+		}
+		return null;
+
+		
 	}
 
 	public static List<Vector3Int> getAllTilesOnAreaOnMap(Tilemap tileMap, Vector3Int originCell, int areaSizeH, int areaSizeV){
@@ -229,6 +255,7 @@ public class GridHandler{
 	public static Vector3Int[] AStar(Tilemap FloorMap,Tilemap ObstacleMap, Vector3Int originCell, Vector3Int goalCell){
 		List<Vector3Int> Result = new List<Vector3Int>();
 		Dictionary<Vector3Int,Vector3Int> came_from = new Dictionary<Vector3Int, Vector3Int>();
+		
 
 		Queue<Vector3Int> Fronteira = new Queue<Vector3Int>();
 		Fronteira.Enqueue(originCell);
@@ -238,14 +265,15 @@ public class GridHandler{
 			Vector3Int Current = Fronteira.Dequeue();
 
 			Vector3Int[] CurrentNeighbors = getTilesAround(Current, FloorMap);
-
+			int cost_so_far = 0;
 			for(int i=0;i<CurrentNeighbors.Length;i++){
 				if(FloorMap.HasTile(CurrentNeighbors[i]) && !Result.Contains(CurrentNeighbors[i])){
 					//Debug.Log(n.ToString());
 					Fronteira.Enqueue(CurrentNeighbors[i]);
-					//if(){
+					
+					if(){
 						Result.Add(CurrentNeighbors[i]);
-					//}
+					}
 				}
 			}
 			SortUsingManhattanDistance(Fronteira,goalCell);

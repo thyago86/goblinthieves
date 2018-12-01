@@ -47,10 +47,10 @@ public class Jogador_Movimento : MonoBehaviour {
 
 /* Metodo de mover o personagem e a camera para outra sessão do mapa */
 	public void MudarSala(){
-		Vector3Int PosFinal = PortalHandler.Portal_Portal[Chao.WorldToCell(transform.position)];
+		Vector3Int PosFinal = PortalHandler.instance.Portal_Portal[Chao.WorldToCell(transform.position)];
 		transform.position = Chao.GetCellCenterWorld(PosFinal);
 		
-		cam.gameObject.SendMessage("CallMoveCamera",PortalHandler.Portal_CameraSpot[PosFinal]);
+		cam.gameObject.SendMessage("CallMoveCamera",PortalHandler.instance.Portal_CameraSpot[PosFinal]);
 	}
 /* Metodo de mover o personagem e a camera para outra sessãao do mapa */
 

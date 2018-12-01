@@ -20,13 +20,13 @@ GameObject:
   m_Component:
   - component: {fileID: 4855309259872468}
   - component: {fileID: 114932574664505606}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: VisibilityArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1167967439958324
 GameObject:
   m_ObjectHideFlags: 0
@@ -36,7 +36,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4554563876574156}
   - component: {fileID: 212378368681023008}
-  m_Layer: 0
+  - component: {fileID: 114603194358904274}
+  - component: {fileID: 61535146080048602}
+  m_Layer: 10
   m_Name: Tocha
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50,7 +52,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1167967439958324}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.5, y: 1.5, z: 0}
+  m_LocalPosition: {x: -1.5, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4855309259872468}
@@ -70,6 +72,44 @@ Transform:
   m_Father: {fileID: 4554563876574156}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &61535146080048602
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1167967439958324}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.5}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 1, y: 2}
+    newSize: {x: 0.32, y: 0.48}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &114603194358904274
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1167967439958324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 888ddb3c93bc86c4594f7c45ea10bd54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Active: 0
+  Light: {fileID: 1062840576217590}
 --- !u!114 &114932574664505606
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -83,9 +123,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaskPrefab: {fileID: 1029289524253550, guid: f9d5027e93bb5c441baec38e09e3c2e2, type: 2}
   Chao: {fileID: 0}
-  Obstacles: {fileID: 0}
+  Parede: {fileID: 0}
   Fog: {fileID: 0}
-  AreaSize: 4
+  AreaSize: 3
 --- !u!212 &212378368681023008
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -121,7 +161,7 @@ SpriteRenderer:
   m_SortingLayerID: 1652141781
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300032, guid: f54c032c9b9d0714085fa613c90bf669, type: 3}
+  m_Sprite: {fileID: 21300302, guid: d62ac26486e53e74e874459fbcc62d24, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

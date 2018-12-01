@@ -8,7 +8,7 @@ public class VisibilityArea : MonoBehaviour {
 	public GameObject MaskPrefab;
 
 	public Tilemap Chao;
-	public Tilemap Obstacles;
+	public Tilemap Parede;
 	public Tilemap Fog;
 
 	public int AreaSize;
@@ -42,7 +42,7 @@ public class VisibilityArea : MonoBehaviour {
 			maskTile.SetActive(false);
 		}
 
-		Vector3Int[] allPos = GridHandler.getAllTilesVisibilityTilesAround(Chao,Obstacles,currentPos,AreaSize);
+		Vector3Int[] allPos = GridHandler.getAllTilesVisibilityTilesAround(Chao,Parede,currentPos,AreaSize);
 
 		foreach (Vector3Int pos in allPos){
 			
@@ -60,6 +60,9 @@ public class VisibilityArea : MonoBehaviour {
 
 	void Start () {
 		MakePool();
+		Chao = GridInfo.instance.Chao;
+		Parede = GridInfo.instance.Parede;
+		Fog = GridInfo.instance.Fog;
 		MakeVisibleArea(Chao.WorldToCell(transform.position));
 	}
 	

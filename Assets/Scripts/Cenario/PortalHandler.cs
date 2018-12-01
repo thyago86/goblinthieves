@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PortalHandler : MonoBehaviour {
+public class PortalHandler : SingletonMonoBehaviour<PortalHandler> {
 
-	public static Dictionary<Vector3Int,Vector3Int> Portal_Portal = new Dictionary<Vector3Int,Vector3Int>();
-	public static Dictionary<Vector3Int,Vector3> Portal_CameraSpot = new Dictionary<Vector3Int,Vector3>();
+	public Dictionary<Vector3Int,Vector3Int> Portal_Portal = new Dictionary<Vector3Int,Vector3Int>();
+	public Dictionary<Vector3Int,Vector3> Portal_CameraSpot = new Dictionary<Vector3Int,Vector3>();
 
 	void Start () {
 

@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 114176236346546536}
   - component: {fileID: 114467702746009454}
   - component: {fileID: 114995664745134808}
+  - component: {fileID: 114514938184678058}
   - component: {fileID: 61441813227449896}
   m_Layer: 0
   m_Name: Jogador
@@ -110,9 +111,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b22d5cbd50fb7748b09ccda6610b681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FacingTile: {x: 0, y: 0, z: 0}
+  currentGrid: {fileID: 0}
   PlayerAtk: {fileID: 0}
   PlayerMov: {fileID: 0}
+  PlayrInt: {fileID: 0}
+  ArmadilhaPrefab: {fileID: 1606410869621740, guid: ebfc877e5b8d8f749a687ceed89c31b9,
+    type: 2}
+  FacingTile: {x: 0, y: 0, z: 0}
+  SelectedItem: 
 --- !u!114 &114467702746009454
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -144,9 +150,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaskPrefab: {fileID: 1029289524253550, guid: f9d5027e93bb5c441baec38e09e3c2e2, type: 2}
   Chao: {fileID: 0}
-  Obstacles: {fileID: 0}
+  Parede: {fileID: 0}
   Fog: {fileID: 0}
-  AreaSize: 4
+  AreaSize: 3
+--- !u!114 &114514938184678058
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1398653057072640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e27e5f8c620a4e849a687fddd0039de7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rayDist: 1
+  layer:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &114995664745134808
 MonoBehaviour:
   m_ObjectHideFlags: 1
