@@ -10,6 +10,9 @@ public class TochaInteract : ObjInteract_Base {
 	public override void Interaction(){
 		Active = !Active;
 		Light.SetActive(Active);
+		if(Active == false){
+			Light.GetComponent<VisibilityArea>().DisableVisibilityArea();
+		}
 	}
 
 	void Start () {

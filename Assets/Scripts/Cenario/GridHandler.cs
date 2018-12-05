@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class GridHandler : SingletonMonoBehaviour<GridHandler>{
 
-	public Dictionary<Vector3Int,int> visibility_cost;
-	public Dictionary<Vector3Int,int> wall_cost;
+
 
 	public static Vector3Int[] getTilesAround(Vector3Int pos, Tilemap Map){
 		List<Vector3Int> Result = new List<Vector3Int>();
@@ -59,16 +58,17 @@ public class GridHandler : SingletonMonoBehaviour<GridHandler>{
 		return Result;
 	}
 
-	public static GameObject GetInteractableOnTile(Vector3Int pos){		
+	public static List<GameObject> GetInteractablesOnRoom(Vector3Int pos, BoundsInt roomBounds){		
 		GameObject[] AllInteractables = GameObject.FindGameObjectsWithTag("Interactable");
+		List<GameObject> Result = new List<GameObject>();
+		
 		foreach (var item in AllInteractables){
-			if(item.transform.position == pos){
-				return item;
+			if(roomBounds.Contains(GridInfo.instance.Chao.WorldToCell(item.transform.position))){
+				Result.Add(item);
 			}
 		}
-		return null;
-
 		
+		return Result;
 	}
 
 	public static List<Vector3Int> getAllTilesOnAreaOnMap(Tilemap tileMap, Vector3Int originCell, int areaSizeH, int areaSizeV){
@@ -91,38 +91,6 @@ public class GridHandler : SingletonMonoBehaviour<GridHandler>{
 
 		int CellX = (int) FloorMap.cellSize.x;
 		int CellY = (int) FloorMap.cellSize.y;
-		/* 
-			BoundsInt Area = new BoundsInt(originCell,new Vector3Int(areaSizeH,areaSizeV,1));
-			Area.SetMinMax(new Vector3Int(originCell.x-areaSizeH,originCell.y-areaSizeV,-1),new Vector3Int(originCell.x+areaSizeH+1,originCell.y+areaSizeV+1,1));
-
-			foreach(var pos in Area.allPositionsWithin){
-				if(tileMap.HasTile(pos) && !ObstacleMap.HasTile(pos)){
-					Result.Add(pos);
-				}
-			}
-		*/
-		/* 
-			Queue<Vector3Int> Fronteira = new Queue<Vector3Int>();
-			Fronteira.Enqueue(originCell);
-			Result.Add(originCell);
-
-			while(Fronteira.Count > 0){
-				Vector3Int Current = Fronteira.Dequeue();
-				if(Vector3Int.Distance(originCell,Current) > FloorMap.cellSize.magnitude*areaSize){
-					break;
-				}
-				Vector3Int[] CurrentNeighbors = getTilesAround(Current, FloorMap);
-				foreach (Vector3Int n in CurrentNeighbors){
-					if(FloorMap.HasTile(n) && !Result.Contains(n)){
-						//Debug.Log(n.ToString());
-						Result.Add(n);
-						if(!ObstacleMap.HasTile(n)){
-							Fronteira.Enqueue(n);
-						}
-					}
-				}
-			}
-		*/
 
 		Vector3Int pos = new Vector3Int(originCell.x,originCell.y,0);
 
@@ -206,29 +174,6 @@ public class GridHandler : SingletonMonoBehaviour<GridHandler>{
 		return Result.ToArray();
 	}
 
-	public static void SortUsingManhattanDistance(Queue<Vector3Int> q, Vector3Int goal){
-		
-		Vector3Int[] array = q.ToArray();
-		q.Clear();
-
-		for(int i=0;i<array.Length-1;i++){
-			int distanceCurrent = Mathf.Abs((array[i].x - goal.x)) + Mathf.Abs((array[i].y - goal.y));
-			
-			for(int j=i+1;j<array.Length;j++){
-				int distanceCheck = Mathf.Abs((array[j].x - goal.x)) + Mathf.Abs((array[j].y - goal.y));
-				if(distanceCheck < distanceCurrent){
-					Vector3Int temp = array[j];
-					array[j] = array[i];
-					array[i] = temp;
-				}
-			}
-		}
-
-		for(int i=0;i<array.Length;i++){
-			q.Enqueue(array[i]);
-		}
-	}
-
 	public static Vector3Int[] GetCellsDir(Tilemap FloorMap, Tilemap ObstacleMap, Vector2 Dir, Vector3Int originCell, int maxDist, bool Passthrough){
 		List<Vector3Int> Result = new List<Vector3Int>();
 		int CellX = (int) FloorMap.cellSize.x;
@@ -252,34 +197,94 @@ public class GridHandler : SingletonMonoBehaviour<GridHandler>{
 		return Result.ToArray();
 	}
 
-	public static Vector3Int[] AStar(Tilemap FloorMap,Tilemap ObstacleMap, Vector3Int originCell, Vector3Int goalCell){
+	public static void SortUsingManhattanDistanceANDCost(Queue<Vector3Int> q, Vector3Int goal, int visibility_fear){
+		
+		Vector3Int[] array = q.ToArray();
+		q.Clear();
+
+		for(int i=0;i<array.Length-1;i++){
+
+			int distanceCurrent = Mathf.Abs((array[i].x - goal.x)) + Mathf.Abs((array[i].y - goal.y));
+
+			if(GridInfo.instance.LitTiles.Contains(array[i]) || GridInfo.instance.Doors.HasTile(array[i])){
+				distanceCurrent += 1 * visibility_fear;
+			}
+			
+			for(int j=i+1;j<array.Length;j++){
+				int distanceCheck = Mathf.Abs((array[j].x - goal.x)) + Mathf.Abs((array[j].y - goal.y));
+				
+				if(GridInfo.instance.LitTiles.Contains(array[j]) || GridInfo.instance.Doors.HasTile(array[j])){
+					distanceCheck += 1 * visibility_fear;
+				}
+				
+				if(distanceCheck < distanceCurrent){
+					Vector3Int temp = array[j];
+					array[j] = array[i];
+					array[i] = temp;
+				}
+			}
+		}
+
+		for(int i=0;i<array.Length;i++){
+			q.Enqueue(array[i]);
+		}
+	}
+
+	public static List<Vector3Int> AStar(Tilemap FloorMap,Tilemap ObstacleMap, Vector3Int originCell, Vector3Int goalCell, int visibility_fear){
 		List<Vector3Int> Result = new List<Vector3Int>();
 		Dictionary<Vector3Int,Vector3Int> came_from = new Dictionary<Vector3Int, Vector3Int>();
+		Dictionary<Vector3Int,int> cost_so_far = new Dictionary<Vector3Int, int>();
 		
 
 		Queue<Vector3Int> Fronteira = new Queue<Vector3Int>();
 		Fronteira.Enqueue(originCell);
-		Result.Add(originCell);
-
+		cost_so_far[originCell] = 0;
+		//Result.Add(originCell);
+		
 		while(Fronteira.Count > 0){
 			Vector3Int Current = Fronteira.Dequeue();
 
+			if(Current == goalCell){
+				//Result.Add(Current);
+				break;
+			}
+
 			Vector3Int[] CurrentNeighbors = getTilesAround(Current, FloorMap);
-			int cost_so_far = 0;
+
 			for(int i=0;i<CurrentNeighbors.Length;i++){
-				if(FloorMap.HasTile(CurrentNeighbors[i]) && !Result.Contains(CurrentNeighbors[i])){
+				int tileCost = 1;
+
+				if(GridInfo.instance.LitTiles.Contains(CurrentNeighbors[i]) || GridInfo.instance.Doors.HasTile(CurrentNeighbors[i])){
+					tileCost = 1 * visibility_fear;
+				}
+
+				int newCost = cost_so_far[Current] + tileCost;
+				
+				if(FloorMap.HasTile(CurrentNeighbors[i]) && !ObstacleMap.HasTile(CurrentNeighbors[i])){
 					//Debug.Log(n.ToString());
-					Fronteira.Enqueue(CurrentNeighbors[i]);
-					
-					if(){
-						Result.Add(CurrentNeighbors[i]);
+					if(!cost_so_far.ContainsKey(CurrentNeighbors[i]) || newCost < cost_so_far[CurrentNeighbors[i]]){
+						cost_so_far[CurrentNeighbors[i]] = newCost;
+						came_from[CurrentNeighbors[i]] = Current;
+						Fronteira.Enqueue(CurrentNeighbors[i]);
+						//Debug.Log(cost_so_far[CurrentNeighbors[i]]);
+						
 					}
 				}
+				SortUsingManhattanDistanceANDCost(Fronteira, goalCell, visibility_fear);
 			}
-			SortUsingManhattanDistance(Fronteira,goalCell);
+			
+			
 		}
-
-		return Result.ToArray();
+		
+		Vector3Int CheckBackCell = goalCell;
+		while(CheckBackCell != originCell){
+			Result.Add(CheckBackCell);
+			CheckBackCell = came_from[CheckBackCell];
+		}
+		Result.Add(originCell);
+		Result.Reverse();
+		
+		return Result;
 	}
 
 }
