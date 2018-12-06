@@ -97,25 +97,30 @@ public class GenerateClusterRoom : MonoBehaviour {
 		}
 	}
 	
-	public void PlaceHideAndTorches(){
+	public void PlaceHideAndTorchesBFS(){
 
 		Queue<Vector3Int> Fronteira = new Queue<Vector3Int>();
 		List<Vector3Int> Visited = new List<Vector3Int>();
+
 		Tilemap FloorMap = GridInfo.instance.Chao;
 		Tilemap ObstacleMap = GridInfo.instance.Parede;
 		Tilemap HideS = GridInfo.instance.HideSpots;
-		Vector3Int origin = FloorMap.WorldToCell(GridInfo.instance.mapBounds[0].center);
+
+
+		Vector3Int origin = new Vector3Int(0,0,0);
 		Fronteira.Enqueue(origin);
 
 		while(Fronteira.Count > 0){
+			
 			Vector3Int Current = Fronteira.Dequeue();
 			Visited.Add(Current);
+			
 			Vector3Int[] CurrentNeighbors = GridHandler.getTilesAround(Current, GridInfo.instance.Chao);
 			Vector3Int[] WallsAround = GridHandler.getTilesAround(Current, GridInfo.instance.Parede);
 
 			if(WallsAround.Length == 3){
-				HideS.SetTileFlags(Current,TileFlags.None);
-				HideS.SetColor(Current,Color.blue);
+				FloorMap.SetTileFlags(Current,TileFlags.None);
+				FloorMap.SetColor(Current,Color.blue);
 			}
 
 			foreach(Vector3Int neighbour in CurrentNeighbors){
@@ -125,6 +130,31 @@ public class GenerateClusterRoom : MonoBehaviour {
 			}
 		}
 
+	}
+
+	public void PlaceHideSpots(){
+
+		Queue<Vector3Int> ToCheckQueue = new Queue<Vector3Int>();
+
+		foreach(Vector3Int wallPos in GridInfo.instance.Parede.cellBounds.allPositionsWithin){
+			Vector3Int[] posAroundWall = GridHandler.getTilesAround(wallPos, GridInfo.instance.Chao);
+			foreach(Vector3Int t in posAroundWall){
+				ToCheckQueue.Enqueue(t);
+			}
+		}
+
+		while(ToCheckQueue.Count > 0){
+			Vector3Int checking = ToCheckQueue.Dequeue();
+
+			Vector3Int[] wallsAround = GridHandler.getTilesAround(checking, GridInfo.instance.Parede);
+
+			if(wallsAround.Length == 3){
+				if(!GridInfo.instance.Parede.HasTile(checking)){
+					GridInfo.instance.HideSpots.SetTile(checking, HideSpotTile);
+				}
+				
+			}
+		}
 	}
 
 	void Update () {
@@ -141,6 +171,7 @@ public class GenerateClusterRoom : MonoBehaviour {
 		foreach(BoundsInt room in GridInfo.instance.mapBounds){
 			GridInfo.instance.Parede.SetTile(new Vector3Int(Mathf.FloorToInt(room.center.x),Mathf.FloorToInt(room.center.y),0),null);
 		}
-		PlaceHideAndTorches();
+		PlaceHideSpots();
+		//PlaceHideAndTorchesBFS();
 	}
 }

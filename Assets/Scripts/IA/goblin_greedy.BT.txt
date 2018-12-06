@@ -1,5 +1,6 @@
 tree("Root")
 	fallback
+		IsDead
 		sequence
 			IgotTreasure
 			fallback

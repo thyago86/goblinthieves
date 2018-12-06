@@ -17,7 +17,8 @@ public class Atk_Base : MonoBehaviour {
 
 	private void OnTriggerEnter2D(Collider2D other){
 		if(other.gameObject.tag == "Goblins"){
-			print(other.gameObject.name);
+			Goblin_Info hitGoblin = other.GetComponent<Goblin_Info>();
+			hitGoblin.Defeated = true;
 		}
 	}
 }

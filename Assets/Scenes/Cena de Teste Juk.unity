@@ -32816,7 +32816,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4554563876574156, guid: f9554630037e7f84e91dc965ad2d24f5, type: 2}
       propertyPath: m_RootOrder
-      value: 18
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 114932574664505606, guid: f9554630037e7f84e91dc965ad2d24f5,
         type: 2}
@@ -32891,7 +32891,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4554563876574156, guid: f9554630037e7f84e91dc965ad2d24f5, type: 2}
       propertyPath: m_RootOrder
-      value: 16
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 114932574664505606, guid: f9554630037e7f84e91dc965ad2d24f5,
         type: 2}
@@ -60710,6 +60710,11 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114467702746009454, guid: a674d378df5655d4e8084a632b8a0520,
+        type: 2}
+      propertyPath: MoveSpeed
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a674d378df5655d4e8084a632b8a0520, type: 2}
   m_IsPrefabAsset: 0
@@ -60950,7 +60955,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4554563876574156, guid: f9554630037e7f84e91dc965ad2d24f5, type: 2}
       propertyPath: m_RootOrder
-      value: 17
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 114932574664505606, guid: f9554630037e7f84e91dc965ad2d24f5,
         type: 2}
@@ -61185,7 +61190,7 @@ TilemapRenderer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1639485122}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -88778,7 +88783,7 @@ Prefab:
     - target: {fileID: 212492879140261816, guid: 71de633b7c12ed541a94f92d69e57985,
         type: 2}
       propertyPath: m_MaskInteraction
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1104581971971362, guid: 71de633b7c12ed541a94f92d69e57985, type: 2}
       propertyPath: m_IsActive

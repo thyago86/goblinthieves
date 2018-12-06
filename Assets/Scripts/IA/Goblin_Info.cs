@@ -109,6 +109,12 @@ public class Goblin_Info : MonoBehaviour {
 	private void IgotTreasure(){
 		Task.current.Complete(gotTreasure);
 	}
+
+	[Task]
+	private void IsDead(){
+		print("Morri!!");
+		Task.current.Complete(Defeated);
+	}
 	
 	[Task]
 	private void onSight(){

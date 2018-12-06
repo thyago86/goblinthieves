@@ -64,7 +64,7 @@ public class GoblinLeafAction : MonoBehaviour {
 		float checkDist = 0;
 		foreach(Vector3Int pos in allHideSpots){
 			
-			if(!GridInfo.instance.LitTiles.Contains(pos) || !roomBounds.Contains(pos)){
+			if(!GridInfo.instance.LitTiles.Contains(pos) && roomBounds.Contains(pos)){
 				if(Vector3Int.Distance(playerPos,pos) > checkDist){
 					Result = pos;
 					checkDist = Vector3Int.Distance(playerPos,pos);
