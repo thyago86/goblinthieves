@@ -40,7 +40,7 @@ public class GenerateClusterRoom : MonoBehaviour {
 		for (int x = 0; x < width; x++){
 			for(int y = 0; y < height; y++){
 				if(terrainMap[x,y] == 1){
-					if(GridInfo.instance.Chao.HasTile(new Vector3Int(-x + width/2, -y + height/2, 0))){
+					if(GridInfo.instance.Chao.HasTile(new Vector3Int(-x + width/2, -y + height/2, 0)) && !GridInfo.instance.Exits.HasTile(new Vector3Int(-x + width/2, -y + height/2, 0))){
 						topMap.SetTile(new Vector3Int(-x + width/2, -y + height/2, 0), topTile);
 						botMap.SetTile(new Vector3Int(-x + width/2, -y + height/2, 0), topTile);
 					}
@@ -157,6 +157,26 @@ public class GenerateClusterRoom : MonoBehaviour {
 		}
 	}
 
+	public void ClearTreasureSpot(){
+		GameObject[] AllTreasures = GameObject.FindGameObjectsWithTag("Treasure");
+
+		foreach(GameObject t in AllTreasures){
+			Vector3Int tPos = GridInfo.instance.Chao.WorldToCell(t.transform.position);
+			GridInfo.instance.Parede.SetTile(tPos,null);
+		}
+
+	}
+
+	public void ClearTorchSpot(){
+		GameObject[] AllTreasures = GameObject.FindGameObjectsWithTag("Interactable");
+
+		foreach(GameObject t in AllTreasures){
+			Vector3Int tPos = GridInfo.instance.Chao.WorldToCell(t.transform.position);
+			GridInfo.instance.Parede.SetTile(tPos,null);
+		}
+
+	}
+
 	void Update () {
 		if(Input.GetMouseButtonDown(0)){
 			//doSim(numR);
@@ -172,6 +192,9 @@ public class GenerateClusterRoom : MonoBehaviour {
 			GridInfo.instance.Parede.SetTile(new Vector3Int(Mathf.FloorToInt(room.center.x),Mathf.FloorToInt(room.center.y),0),null);
 		}
 		PlaceHideSpots();
+
+		ClearTreasureSpot();
+		ClearTorchSpot();
 		//PlaceHideAndTorchesBFS();
 	}
 }

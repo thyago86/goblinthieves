@@ -1,0 +1,47 @@
+tree("Root")
+	fallback
+		IsDead
+		sequence
+			IgotTreasure
+			fallback
+				tree "RunAway"
+				sequence
+					getExitpath
+					move
+				
+		sequence
+			RoomTreasure
+			fallback
+				tree "RunAway"
+				sequence
+					getTreasurepath
+					move
+					grabTreasure
+		sequence
+			AllyDeadInRoom
+			fallback
+				tree "RunAway"
+				sequence
+					getDeadAllypath
+					move
+					ReviveAlly
+
+		tree "RunAway"
+		sequence
+			getNextSector
+			move
+
+
+
+tree("RunAway")
+	fallback
+		sequence
+			not isSafe
+			getHidepath
+			move
+			tryBecomeSafe
+		onSight
+		
+		
+		
+			

@@ -81,6 +81,7 @@ public class VisibilityArea : MonoBehaviour {
 				GridInfo.instance.LitTiles.Remove(p);
 			}
 		}
+		transform.gameObject.SetActive(false);
 	}
 
 	void Start () {

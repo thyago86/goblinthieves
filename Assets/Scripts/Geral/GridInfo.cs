@@ -13,8 +13,6 @@ public class GridInfo : SingletonMonoBehaviour<GridInfo> {
 	public Tilemap HideSpots;
 
 	public List<BoundsInt> mapBounds = new List<BoundsInt>();
-	public BoundsInt currentmapBounds;
-
 	public List<Vector3Int> LitTiles = new List<Vector3Int>();
 	public Dictionary<Vector3Int,int> wall_cost;
 

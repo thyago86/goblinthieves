@@ -21,6 +21,9 @@ GameObject:
   - component: {fileID: 4033438796244976}
   - component: {fileID: 212399891493592562}
   - component: {fileID: 61636392490912790}
+  - component: {fileID: 114745343063865892}
+  - component: {fileID: 114006947409964430}
+  - component: {fileID: 114782135129664298}
   m_Layer: 0
   m_Name: Goblin Explorador
   m_TagString: Goblins
@@ -35,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1243459532273100}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.5, y: 1.5, z: 0}
+  m_LocalPosition: {x: 24.5, y: 13.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -56,7 +59,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.49056625, y: 0.17924511}
+    pivot: {x: 0.5, y: 0.2}
     oldSize: {x: 2, y: 2}
     newSize: {x: 2, y: 2}
     adaptiveTilingThreshold: 0.5
@@ -66,6 +69,66 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &114006947409964430
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1243459532273100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c950f35267d9225478106af6b0e5c480, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentPath: []
+  VisitedSectors: []
+  goal: {x: 1, y: 1, z: 0}
+  currentRoom:
+    m_Position: {x: 0, y: 0, z: 0}
+    m_Size: {x: 0, y: 0, z: 0}
+  targetRoom:
+    m_Position: {x: 0, y: 0, z: 0}
+    m_Size: {x: 0, y: 0, z: 0}
+  originCell: {x: 0, y: 0, z: 0}
+  Fear: 1
+  FearDefault: 100
+  gotTreasure: 0
+  Safe: 1
+  Detected: 0
+  Defeated: 0
+  MoveSpeed: 4
+--- !u!114 &114745343063865892
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1243459532273100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0df6135e4e05af4780c329303efce93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114782135129664298
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1243459532273100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17e43e7170fb45b4b81dcd16d0ff55d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scripts:
+  - {fileID: 4900000, guid: ee6e166deb9e51f4ba0ab8a04b78efea, type: 3}
+  autoReset: 1
+  tickOn: 0
+  sourceInfos:
+  - isFoldout: 1
+    breakPoints: 
+    breakPointStatuses: 
+    collapsedLines: 
+    btScript: 
 --- !u!212 &212399891493592562
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -102,7 +165,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300118, guid: 97af307b182b19847bd3a3fded3a3c59, type: 3}
-  m_Color: {r: 0, g: 0.30542302, b: 1, a: 1}
+  m_Color: {r: 0.26400244, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -110,5 +173,5 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 1
+  m_MaskInteraction: 0
   m_SpriteSortPoint: 0

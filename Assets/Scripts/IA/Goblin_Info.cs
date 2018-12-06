@@ -77,6 +77,30 @@ public class Goblin_Info : MonoBehaviour {
 	}
 
 	[Task]
+	private void getDeadAllypath(){
+		Goblin_Info Ally = Actions.GetNearestFallenAlly(originCell);
+		Vector3Int AllyPos = GridInfo.instance.Chao.WorldToCell(Ally.transform.position);
+		if(goal != AllyPos){
+			goal = AllyPos;
+			currentPath = Actions.GetPath(transform.position,goal,Fear);
+		}
+		
+		Task.current.Succeed();
+	}
+
+	[Task]
+	private void getTorchpath(){
+		TochaInteract tocha = Actions.GetNearestLitTorch(originCell);
+		Vector3Int tochaPos = GridInfo.instance.Chao.WorldToCell(tocha.transform.position);
+		if(goal != tochaPos){
+			goal = tochaPos;
+			currentPath = Actions.GetPath(transform.position,goal,Fear);
+		}
+		
+		Task.current.Succeed();
+	}
+
+	[Task]
 	private void getNextSector(){
 		BoundsInt nextS = new BoundsInt();
 		if(GridHandler.GetRoomBounds(originCell) != currentRoom || goal == originCell){
@@ -104,6 +128,18 @@ public class Goblin_Info : MonoBehaviour {
 		Task.current.Succeed();
 	}
 
+	[Task]
+	private void ReviveAlly(){
+		Actions.SaveAlly();
+		Task.current.Succeed();
+	}
+
+	[Task]
+	private void trySnuffTorch(){
+		Actions.SnuffTorch();
+		Task.current.Succeed();
+	}
+
 
 	[Task]
 	private void IgotTreasure(){
@@ -112,8 +148,30 @@ public class Goblin_Info : MonoBehaviour {
 
 	[Task]
 	private void IsDead(){
-		print("Morri!!");
 		Task.current.Complete(Defeated);
+	}
+
+	[Task]
+	private void AllyDeadInRoom(){
+		Goblin_Info Ally = Actions.GetNearestFallenAlly(originCell);
+		if(Ally != null){
+			Task.current.Succeed();
+		}else{
+			Task.current.Fail();
+		}
+		
+	}
+
+	[Task]
+	private void TorchInRoom(){
+		TochaInteract tocha = Actions.GetNearestLitTorch(originCell);
+		print(tocha);
+		if(tocha != null){
+			Task.current.Succeed();
+		}else{
+			Task.current.Fail();
+		}
+		
 	}
 	
 	[Task]

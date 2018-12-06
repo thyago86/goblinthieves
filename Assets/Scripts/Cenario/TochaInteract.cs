@@ -21,6 +21,8 @@ public class TochaInteract : ObjInteract_Base {
 	
 
 	void Update () {
-		
+		if(!Active){
+			Light.GetComponent<VisibilityArea>().DisableVisibilityArea();
+		}
 	}
 }

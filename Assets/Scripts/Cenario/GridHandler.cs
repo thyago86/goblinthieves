@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GridHandler : SingletonMonoBehaviour<GridHandler>{
+public class GridHandler{
 
 
 
@@ -62,8 +62,8 @@ public class GridHandler : SingletonMonoBehaviour<GridHandler>{
 		GameObject[] AllInteractables = GameObject.FindGameObjectsWithTag("Interactable");
 		List<GameObject> Result = new List<GameObject>();
 		
-		foreach (var item in AllInteractables){
-			if(roomBounds.Contains(GridInfo.instance.Chao.WorldToCell(item.transform.position))){
+		foreach (GameObject item in AllInteractables){
+			if(!roomBounds.Contains(GridInfo.instance.Chao.WorldToCell(item.transform.position))){
 				Result.Add(item);
 			}
 		}
@@ -75,7 +75,7 @@ public class GridHandler : SingletonMonoBehaviour<GridHandler>{
 		GameObject[] AllInteractables = GameObject.FindGameObjectsWithTag("Goblins");
 		List<GameObject> Result = new List<GameObject>();
 		
-		foreach (var item in AllInteractables){
+		foreach (GameObject item in AllInteractables){
 			if(roomBounds.Contains(GridInfo.instance.Chao.WorldToCell(item.transform.position))){
 				Result.Add(item);
 			}

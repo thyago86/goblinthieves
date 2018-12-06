@@ -10,6 +10,7 @@ TagManager:
   - Parede
   - Fog
   - Treasure
+  - Interactable
   layers:
   - Default
   - TransparentFX

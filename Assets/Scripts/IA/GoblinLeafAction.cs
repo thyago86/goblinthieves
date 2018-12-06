@@ -47,6 +47,15 @@ public class GoblinLeafAction : MonoBehaviour {
 		}
 	}
 
+	public bool CheckForAlly(BoundsInt roomBounds){
+		GameObject ally = GameObject.FindGameObjectWithTag("Goblins");
+		if(ally && roomBounds.Contains(GridInfo.instance.Chao.WorldToCell(ally.transform.position))){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
 	public bool CheckForHideSpot(Vector3Int originCell){
 		if(GridInfo.instance.HideSpots.HasTile(originCell) && originCell == goblin.goal){
 			return true;
@@ -106,18 +115,19 @@ public class GoblinLeafAction : MonoBehaviour {
 		return  false;
 	}
 
-	public Vector3Int GetNearestLitTorch(Vector3Int originCell){
-		Vector3Int Result = new Vector3Int(0,0,0);
+	public TochaInteract GetNearestLitTorch(Vector3Int originCell){
+		TochaInteract Result = null;
 
-		List<GameObject> AllInteractables = GridHandler.GetInteractablesOnRoom(GridInfo.instance.currentmapBounds);
+		List<GameObject> AllInteractables = GridHandler.GetInteractablesOnRoom(goblin.currentRoom);
 
 		float checkDist = 100000;
 		foreach(GameObject interact in AllInteractables){
+			print(interact.name);
 			TochaInteract torchInfo = interact.GetComponent<TochaInteract>();
 			Vector3Int interactPos = GridInfo.instance.Chao.WorldToCell(interact.transform.position);
 			if(torchInfo && torchInfo.Active){
 				if(Vector3Int.Distance(originCell,interactPos) < checkDist){
-					Result = interactPos;
+					Result = torchInfo;
 					checkDist = Vector3Int.Distance(originCell,interactPos);
 				}
 			}
@@ -143,19 +153,19 @@ public class GoblinLeafAction : MonoBehaviour {
 		return Result;
 	}
 
-	public Vector3Int GetNearestFallenAlly(Vector3Int originCell){
-		Vector3Int Result = new Vector3Int(0,0,0);
+	public Goblin_Info GetNearestFallenAlly(Vector3Int originCell){
+		Goblin_Info Result = null;
 
-		List<GameObject> AllInteractables = GridHandler.GetGoblinsOnRoom(GridInfo.instance.currentmapBounds);
+		List<GameObject> AllInteractables = GridHandler.GetGoblinsOnRoom(goblin.currentRoom);
 
 		float checkDist = 100000;
-		foreach(GameObject interact in AllInteractables){
-			Goblin_Info allyInfo = interact.GetComponent<Goblin_Info>();
-			Vector3Int interactPos = GridInfo.instance.Chao.WorldToCell(interact.transform.position);
-			if(allyInfo && allyInfo.Defeated){
-				if(Vector3Int.Distance(originCell,interactPos) < checkDist){
-					Result = interactPos;
-					checkDist = Vector3Int.Distance(originCell,interactPos);
+		foreach(GameObject ally in AllInteractables){
+			Goblin_Info allyInfo = ally.GetComponent<Goblin_Info>();
+			Vector3Int allyPos = GridInfo.instance.Chao.WorldToCell(ally.transform.position);
+			if(allyInfo && allyInfo.Defeated && goblin.currentRoom.Contains(allyPos)){
+				if(Vector3Int.Distance(originCell,allyPos) < checkDist){
+					Result = allyInfo;
+					checkDist = Vector3Int.Distance(originCell,allyPos);
 				}
 			}
 		}
@@ -178,14 +188,25 @@ public class GoblinLeafAction : MonoBehaviour {
 		return Result;
 	}
 
-	public bool SnuffTorch(TochaInteract tocha){
-		tocha.Interaction();
-		return true;
+	public void SnuffTorch(){
+		GameObject[] AllTorches = GameObject.FindGameObjectsWithTag("Interactable");
+
+		foreach(GameObject t in AllTorches){
+			TochaInteract tInfo = t.GetComponent<TochaInteract>();
+			if(Vector3.Distance(transform.position, t.transform.position) <= 0.2 && tInfo.Active){
+				tInfo.Active = false;
+			}
+		}
 	}
 
-	public bool SaveAlly(Goblin_Info ally){
-		ally.Defeated = false;
-		return true;
+	public void SaveAlly(){
+		GameObject[] AllAllies = GameObject.FindGameObjectsWithTag("Goblins");
+
+		foreach(GameObject Gob in AllAllies){
+			if(Vector3.Distance(transform.position, Gob.transform.position) <= 0.2 && Gob.GetComponent<Goblin_Info>().Defeated){
+				Gob.GetComponent<Goblin_Info>().Defeated = false;
+			}
+		}
 	}
 
 	public void grabTreasure(){
