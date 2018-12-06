@@ -9,6 +9,7 @@ TagManager:
   - Chao
   - Parede
   - Fog
+  - Treasure
   layers:
   - Default
   - TransparentFX

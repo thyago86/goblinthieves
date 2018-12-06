@@ -33,9 +33,9 @@ public class Jogador_Movimento : MonoBehaviour {
 			if(Vector3.Distance(transform.position, nextPos) > 0){
 				transform.position = Vector3.MoveTowards(transform.position, nextPos, MoveSpeed*Time.deltaTime);
 			}else{
-				if(Portal.HasTile(Chao.WorldToCell(transform.position))){
-					MudarSala();
-				}
+				//if(Portal.HasTile(Chao.WorldToCell(transform.position))){
+				//	MudarSala();
+				//}
 				Moving = false;
 			}
 			yield return null;

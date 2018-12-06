@@ -1,0 +1,37 @@
+tree("Root")
+	fallback
+		sequence
+			IgotTreasure
+			fallback
+				tree "RunAway"
+				sequence
+					getExitpath
+					move
+				
+		sequence
+			RoomTreasure
+			fallback
+				tree "RunAway"
+				sequence
+					getTreasurepath
+					move
+					grabTreasure
+		tree "RunAway"
+		sequence
+			getNextSector
+			move
+
+
+
+tree("RunAway")
+	fallback
+		sequence
+			not isSafe
+			getHidepath
+			move
+			tryBecomeSafe
+		onSight
+		
+		
+		
+			

@@ -58,7 +58,7 @@ public class GridHandler : SingletonMonoBehaviour<GridHandler>{
 		return Result;
 	}
 
-	public static List<GameObject> GetInteractablesOnRoom(Vector3Int pos, BoundsInt roomBounds){		
+	public static List<GameObject> GetInteractablesOnRoom(BoundsInt roomBounds){		
 		GameObject[] AllInteractables = GameObject.FindGameObjectsWithTag("Interactable");
 		List<GameObject> Result = new List<GameObject>();
 		
@@ -68,6 +68,29 @@ public class GridHandler : SingletonMonoBehaviour<GridHandler>{
 			}
 		}
 		
+		return Result;
+	}
+
+	public static List<GameObject> GetGoblinsOnRoom(BoundsInt roomBounds){		
+		GameObject[] AllInteractables = GameObject.FindGameObjectsWithTag("Goblins");
+		List<GameObject> Result = new List<GameObject>();
+		
+		foreach (var item in AllInteractables){
+			if(roomBounds.Contains(GridInfo.instance.Chao.WorldToCell(item.transform.position))){
+				Result.Add(item);
+			}
+		}
+		
+		return Result;
+	}
+
+	public static BoundsInt GetRoomBounds(Vector3Int origin){
+		BoundsInt Result = new BoundsInt();
+		foreach(BoundsInt b in GridInfo.instance.mapBounds){
+			if(b.Contains(origin)){
+				Result = b;			}
+		}
+
 		return Result;
 	}
 

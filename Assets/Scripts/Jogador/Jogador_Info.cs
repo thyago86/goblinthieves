@@ -85,4 +85,6 @@ public class Jogador_Info : MonoBehaviour {
 		}
 		
 	}
+
+	
 }

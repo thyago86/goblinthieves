@@ -9,13 +9,17 @@ public class GridInfo : SingletonMonoBehaviour<GridInfo> {
 	public Tilemap Parede;
 	public Tilemap Fog;
 	public Tilemap Doors;
+	public Tilemap Exits;
+	public Tilemap HideSpots;
 
 	public List<BoundsInt> mapBounds = new List<BoundsInt>();
+	public BoundsInt currentmapBounds;
 
 	public List<Vector3Int> LitTiles = new List<Vector3Int>();
 	public Dictionary<Vector3Int,int> wall_cost;
 
 	void Start () {
+		
 	}
 	
 	// Update is called once per frame
